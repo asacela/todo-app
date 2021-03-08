@@ -9,7 +9,7 @@ const Task = props => (
   <tr>
     <td>{props.task.name}</td>
     <td>{props.task.points}</td>
-    <td>{props.task.duration}</td>
+    <td>{props.task.duration * 60} min</td>
     <td> 
       <div className="btn-group mr-1" role="group" aria-label="First group">
         <button type="button" className="btn btn-success" >complete</button>
@@ -139,7 +139,7 @@ export default class ObjectiveList extends Component {
     currentDate.setDate(currentDate.getDate() + 1);
     return (
       <div>
-        <div style={{display:"flex"}}>
+        <div className="date-header">
           <button type="button" className="btn btn-circle btn-sm btn-outline-primary" onClick={() => { this.getPrevDay() }}> 
             { icons.arrowTriL }
           </button>&nbsp;&nbsp;
@@ -153,7 +153,7 @@ export default class ObjectiveList extends Component {
             <tr>
               <th>Task</th>
               <th>Points</th>
-              <th>Duration (hrs)</th>
+              <th>Duration</th>
               <th>Action</th>
               <th>Type</th>
             </tr>
