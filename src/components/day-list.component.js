@@ -13,7 +13,7 @@ const Task = props => (
   <tr>
     <td>{props.task.name}</td>
     <td>{props.task.points}</td>
-    <td>{props.task.duration * 60} min</td>
+    <td>{props.task.duration} min</td>
     <td> 
       <div className="btn-group mr-1" role="group" aria-label="First group">
         <button type="button" className="btn btn-success" onClick={() => {props.completeTask(props.task._id)}}>complete</button>
@@ -22,7 +22,11 @@ const Task = props => (
       </div>
     </td>
     <td>
-      <button type="button" className="btn btn-outline-primary">Recurring</button>
+      {
+        props.task.backlog ? (<button type="button" className="btn btn-outline-danger" onClick={() => { props.toggleTypeBtn(props.task._id) }}>Backlog</button>) 
+        : 
+        (<button type="button" className="btn btn-outline-primary" onClick={() => { props.toggleTypeBtn(props.task._id) }}>Recurring</button>)
+      }
     </td>
   </tr>
 )
@@ -35,6 +39,7 @@ export default class ObjectiveList extends Component {
     this.completeTask = this.completeTask.bind(this)
     this.getPrevDay = this.getPrevDay.bind(this)
     this.getNextDay = this.getNextDay.bind(this)
+    this.toggleTypeBtn = this.toggleTypeBtn.bind(this)
     this.date = new Date().toISOString().split("T")[0];
     this.state = {
       date: this.date,
@@ -121,35 +126,54 @@ export default class ObjectiveList extends Component {
 
   getPrevDay() {
 
-    var prevDate = new Date(this.state.date);
-    prevDate.setDate(prevDate.getDate() - 1);
-    var prevDateString = prevDate.toISOString().split("T")[0];
-    this.date = prevDateString;
-    console.log(this.date)
-    this.setState({
-          date: this.date
-    });
-    window.location = '/';
+    // var prevDate = new Date(this.state.date);
+    // prevDate.setDate(prevDate.getDate() - 1);
+    // var prevDateString = prevDate.toISOString().split("T")[0];
+    // this.date = prevDateString;
+    // console.log(this.date)
+    // this.setState({
+    //       date: this.date
+    // });
+    // window.location = '/';
   }
 
   getNextDay() {
 
-    var nextDate = new Date(this.state.date);
-    nextDate.setDate(nextDate.getDate() + 1);
-    var nextDateString = nextDate.toISOString().split("T")[0];
-    this.date = nextDateString;
-    console.log(this.date)
-    this.setState({
-          date: this.date 
+    // var nextDate = new Date(this.state.date);
+    // nextDate.setDate(nextDate.getDate() + 1);
+    // var nextDateString = nextDate.toISOString().split("T")[0];
+    // this.date = nextDateString;
+    // console.log(this.date)
+    // this.setState({
+    //       date: this.date 
 
-    }); 
+    // }); 
+    // window.location = '/';
+  }
+
+  toggleTypeBtn(id){
+
+    let tasks = this.state.tasks
+    tasks.filter(el => el._id === id)[0].backlog = !(tasks.filter(el => el._id === id)[0].backlog);
+    console.log(tasks);
+
+    const day = {
+      date: this.state.date,
+      numtasks: this.state.numtasks,
+      score: this.state.score,
+      tasks: this.state.tasks
+    }
+
+    axios.post('http://localhost:5000/days/update', day)
+    .then(res => console.log(res.data));
+
     window.location = '/';
   }
 
   objectivesList() {
 
     return this.state.tasks.filter(el => el.complete === false).map(currentTask => {
-      return <Task task={currentTask}deleteTask={this.deleteTask} updateTask={this.updateTask} completeTask={this.completeTask}  getPrevDay={this.getPrevDay} getNextDay={this.getNextDay} key={currentTask._id}/>;
+      return <Task task={currentTask} deleteTask={this.deleteTask} updateTask={this.updateTask} completeTask={this.completeTask}  getPrevDay={this.getPrevDay} getNextDay={this.getNextDay} toggleTypeBtn={this.toggleTypeBtn} key={currentTask._id}/>;
     })
   }
 
@@ -187,7 +211,7 @@ export default class ObjectiveList extends Component {
           </button>
         </div> &nbsp;
         <NavbarForm data={this.state} />
-        <Table striped bordered hover variant="dark" className="table list-table">
+        <Table hover variant="dark" className="table list-table">
           <thead className="">
             <tr>
               <th>Task</th>

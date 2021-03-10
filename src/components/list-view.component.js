@@ -14,7 +14,7 @@ const CompletedTask = props => (
   <tr>
     <td>{props.task.name}</td>
     <td>{props.task.points}</td>
-    <td>{props.task.duration * 60} min</td>
+    <td>{props.task.duration} min</td>
     <td> 
       <div className="btn-group mr-1" role="group" aria-label="First group">
         <button type="button" className="btn btn-success" onClick={() => {props.completeTask(props.task._id)}}>complete</button>
@@ -23,7 +23,11 @@ const CompletedTask = props => (
       </div>
     </td>
     <td>
-      <button type="button" className="btn btn-outline-primary">Recurring</button>
+      {
+        props.task.backlog ? (<button type="button" className="btn btn-outline-danger" onClick={() => { props.toggleTypeBtn(props.task._id) }}>Backlog</button>) 
+        : 
+        (<button type="button" className="btn btn-outline-primary" onClick={() => { props.toggleTypeBtn(props.task._id) }}>Recurring</button>)
+      }
     </td>
   </tr>
 )
@@ -37,6 +41,7 @@ export default class ListView extends Component {
 
       this.updateTask = this.updateTask.bind(this)
       this.completeTask = this.completeTask.bind(this)
+      this.toggleTypeBtn = this.toggleTypeBtn.bind(this)
 
 		this.state = {
          showModal: false,
@@ -105,10 +110,29 @@ export default class ListView extends Component {
 
    }
 
+   toggleTypeBtn(id){
+
+    let tasks = this.state.tasks
+    tasks.filter(el => el._id === id)[0].backlog = !(tasks.filter(el => el._id === id)[0].backlog);
+    console.log(tasks);
+
+    const day = {
+      date: this.state.date,
+      numtasks: this.state.numtasks,
+      score: this.state.score,
+      tasks: this.state.tasks
+    }
+
+    axios.post('http://localhost:5000/days/update', day)
+    .then(res => console.log(res.data));
+
+    window.location = '/';
+   }   
+
    completedList() {
 
     return this.state.tasks.filter(el => el.complete === true).map(currentTask => {
-      return <CompletedTask task={currentTask} updateTask={this.updateTask} completeTask={this.completeTask}key={currentTask._id}/>;
+      return <CompletedTask task={currentTask} updateTask={this.updateTask} completeTask={this.completeTask} toggleTypeBtn={this.toggleTypeBtn} key={currentTask._id}/>;
     })
    }
 
@@ -128,7 +152,7 @@ export default class ListView extends Component {
                            <Badge pill variant="success"> Completed Tasks </Badge>
                         </h2>
                      </div>
-                     <Table striped bordered hover variant="light" className="table list-table">
+                     <Table hover variant="light" className="table list-table">
                          <thead className="">
                            <tr>
                              <th>Task</th>
