@@ -52,6 +52,19 @@
     text-align: center; 
 } 
 
+.list-table{
+
+}
+
+.navbar-form{
+  display: flex;
+  justify-content: space-around;
+}
+
+.form-navbar-children{
+
+}
+
 .my-modal {
  background: #fff;
  position: absolute;

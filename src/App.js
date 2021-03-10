@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import axios from 'axios';
 
 import Navbar from "./components/navbar.component"
-// import ObjectiveList from "./components/day-list.component";
 import ListView from "./components/list-view.component";
+
 
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
   return (
     <Router>
       <div className="container">
-      <Navbar/>
+      <Navbar />
       <br/>
       <Route path="/" exact component={ListView} />
       </div>

@@ -16,6 +16,8 @@ let Day = require('../models/day.model');
 router.route('/').get((req,res) => {
 
 	const today = new Date().toISOString().split("T")[0];
+	// console.log(req.body.date);
+	// var date = req.body.date;
 	Day.find({date: String(today)})
 	.then(tasks => res.json(tasks))
 	.catch(err => res.status(400).json('Error: ' + err));
@@ -99,6 +101,26 @@ router.route('/update').post((req, res) => {
 
 });
 
+/*
+	Add Task.
+	Push task to
+	array for
+	specified day.
+*/
+router.route('/addTask').post((req, res) => {
+
+
+
+  	Day.findOneAndUpdate({date: req.body.date},
+  	{ 
+  		$push: 
+  		{ 
+  			tasks: req.body.tasks 
+  		} 
+  	})
+    .then(() => res.json('Task Added!'))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
 
 
 
