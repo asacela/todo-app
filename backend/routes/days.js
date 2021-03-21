@@ -125,6 +125,22 @@ router.route('/addTask').post((req, res) => {
 
 
 /*
+	Get Recurring Tasks.
+	Pull task list from
+	previous day.
+*/
+router.route('/recurring').get((req,res) => {
+
+	var today = new Date();
+	today.setDate(today.getDate() - 1);
+	today = today.toISOString().split("T")[0];
+	Day.find({date: String(today)})
+	.then(tasks => res.json(tasks))
+	.catch(err => res.status(400).json('Error: ' + err));
+});
+
+
+/*
 	TODO: Update.
 	Update request for
 	updating tasks for
