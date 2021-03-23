@@ -1,5 +1,6 @@
 // list-view.component.js
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import ObjectiveList from "./day-list.component";
 import Modal from "./completed-modal.component";
 import axios from 'axios';
@@ -35,28 +36,44 @@ const CompletedTask = props => (
 export default class ListView extends Component {
 
 
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
       this.updateTask = this.updateTask.bind(this)
       this.completeTask = this.completeTask.bind(this)
       this.toggleTypeBtn = this.toggleTypeBtn.bind(this)
 
-		this.state = {
+    this.state = {
          showModal: false,
          date: "",
          numtasks: 0,
          score: 0,
          tasks: []
       }
-	}
+  }
 
-	toggleModal = () => {
+  toggleModal = () => {
       this.setState({
          showModal: ! this.state.showModal
       })
     };
-    
+
+   componentDidMount(){
+    axios.get("http://localhost:5000/days/")
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          date: response.data[0].date,
+          numtasks: response.data[0].tasks.length,
+          score: response.data[0].score,
+          tasks: response.data[0].tasks,
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      })
+   }
+
    updateTask(id) {
 
       const day = {
@@ -120,13 +137,13 @@ export default class ListView extends Component {
    }
 
 
-	render() {
+  render() {
 
    const { showModal } = this.state;
 
    return(
 
-   	<div>	
+     <div>  
             {
                showModal ? (
                   <Modal className="my-modal">
@@ -157,17 +174,17 @@ export default class ListView extends Component {
                ) : null
             }
 
-   	<ObjectiveList/>
-   	<div align="right">
-			<button type="button" className="btn btn-outline-success" onClick={this.toggleModal}> 
-				Completed Tasks
-			</button>
-	</div>
+     <ObjectiveList/>
+     <div align="right">
+      <button type="button" className="btn btn-outline-success" onClick={this.toggleModal}> 
+        Completed Tasks
+      </button>
+  </div>
       
       </div>
    );
 }
-	
+  
 
 
 
