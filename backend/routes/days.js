@@ -141,6 +141,28 @@ router.route('/recurring').get((req,res) => {
 
 
 /*
+	Add Task.
+	Push task to
+	array for
+	specified day.
+*/
+router.route('/addRecurringTasks').post((req, res) => {
+
+
+
+  	Day.findOneAndUpdate({date: req.body.date},
+  	{ 
+  		$addToSet: 
+  		{ 
+  			tasks: req.body.tasks 
+  		} 
+  	})
+    .then(() => res.json('Recurring Tasks Added!'))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+
+/*
 	TODO: Update.
 	Update request for
 	updating tasks for

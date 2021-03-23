@@ -1,6 +1,5 @@
 // list-view.component.js
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import ObjectiveList from "./day-list.component";
 import Modal from "./completed-modal.component";
 import axios from 'axios';
@@ -57,23 +56,7 @@ export default class ListView extends Component {
          showModal: ! this.state.showModal
       })
     };
-
-   componentDidMount(){
-    axios.get("http://localhost:5000/days/")
-      .then(response => {
-        console.log(response.data);
-        this.setState({
-          date: response.data[0].date,
-          numtasks: response.data[0].tasks.length,
-          score: response.data[0].score,
-          tasks: response.data[0].tasks,
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      })
-   }
-
+    
    updateTask(id) {
 
       const day = {

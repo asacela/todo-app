@@ -1,12 +1,12 @@
 // day-list.component.js
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import icons from 'glyphicons';
 import Table from 'react-bootstrap/Table'
 import Badge from 'react-bootstrap/Badge'
 import Alert from 'react-bootstrap/Alert'
 import NavbarForm from "./navbar-form.component";
+import NavbarTools from "./navbar-tools.component";
 import './../App.css';
 
 const Task = props => (
@@ -104,6 +104,8 @@ export default class ObjectiveList extends Component {
     tasks.filter(el => el._id === id)[0].complete = true;
     console.log(tasks);
 
+    this.state.score = this.state.score + 1;
+
     const day = {
       date: this.state.date,
       numtasks: this.state.numtasks,
@@ -114,7 +116,7 @@ export default class ObjectiveList extends Component {
     axios.post('http://localhost:5000/days/update', day)
     .then(res => console.log(res.data));
 
-    window.location = '/';
+    // window.location = '/';
 
   }
 
@@ -210,6 +212,7 @@ export default class ObjectiveList extends Component {
             { icons.arrowTriR }
           </button>
         </div> &nbsp;
+        <NavbarTools data={this.state} />
         <NavbarForm data={this.state} />
         <Table hover variant="dark" className="table list-table">
           <thead className="">
