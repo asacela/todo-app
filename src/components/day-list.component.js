@@ -1,5 +1,6 @@
 // day-list.component.js
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import icons from 'glyphicons';
 import Table from 'react-bootstrap/Table'
@@ -104,8 +105,6 @@ export default class ObjectiveList extends Component {
     tasks.filter(el => el._id === id)[0].complete = true;
     console.log(tasks);
 
-    this.state.score = this.state.score + 1;
-
     const day = {
       date: this.state.date,
       numtasks: this.state.numtasks,
@@ -116,7 +115,7 @@ export default class ObjectiveList extends Component {
     axios.post('http://localhost:5000/days/update', day)
     .then(res => console.log(res.data));
 
-    // window.location = '/';
+    window.location = '/';
 
   }
 
