@@ -52,10 +52,6 @@
     text-align: center; 
 } 
 
-.list-table{
-
-}
-
 .navbar-form{
 
   display: flex;
@@ -72,6 +68,7 @@
 .form-navbar-children{
 
 }
+
 
 
 .my-modal {
@@ -115,4 +112,10 @@
 .modal-body{
     height: 80vh;
     overflow-y: auto;
+}
+
+
+.backlog-table{
+  color:  #FFFFFF;
+  background: #3f3f3f;
 }

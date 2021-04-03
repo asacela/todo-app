@@ -3,27 +3,26 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import icons from 'glyphicons';
-import Table from 'react-bootstrap/Table'
-// import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import './../App.css';
+import './../SuperResponsiveTableStyle.css';
 
 
 const Task = props => (
-  <tr>
-    <td>{props.task.name}</td>
-    <td>{props.task.points}</td>
-    <td>{props.task.duration} min</td>
-    <td> 
-      <div className="btn-group mr-1" role="group" aria-label="First group">
-        <button type="button" className="btn btn-success">complete</button>
-        <button type="button" className="btn btn-danger" onClick={() => { props.deleteTask(props.task._id) }}>delete</button>
-      </div>
-    </td>
-  </tr>
+  <Tr>
+    <Td>{props.task.name}</Td>
+    <Td>{props.task.points}</Td>
+    <Td>{props.task.duration} min</Td>
+    <Td> 
+
+      <button type="button" className="btn btn-success">complete</button>&nbsp;
+      <button type="button" className="btn btn-danger" onClick={() => { props.deleteTask(props.task._id) }}>delete</button>
+    </Td>
+  </Tr>
 )
 
-
 export default class BacklogList extends Component {
+
   constructor(props) {
 
   	super(props);
@@ -66,9 +65,6 @@ export default class BacklogList extends Component {
       .catch(error => {
         console.log(error);
       })
-
-
-
   }
 
   deleteTask(id){
@@ -81,11 +77,9 @@ export default class BacklogList extends Component {
     })
 
     window.location = '/backlog';
-
   }
 
   completeTask(){
-
   }
 
   backlogList() {
@@ -100,18 +94,18 @@ export default class BacklogList extends Component {
   	return(
 
   		<div>
-  		<Table hover variant="dark" className="table list-table">
-          <thead className="">
-            <tr>
-              <th>Task</th>
-              <th>Points</th>
-              <th>Duration</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
+  		  <Table className="backlog-table table">
+          <Thead>
+            <Tr>
+              <Th>Task</Th>
+              <Th>Points</Th>
+              <Th>Duration</Th>
+              <Th>Action</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
             { this.backlogList() }
-          </tbody>
+          </Tbody>
         </Table>
       </div>
 
