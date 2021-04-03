@@ -3,33 +3,34 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import icons from 'glyphicons';
-import Table from 'react-bootstrap/Table'
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import Badge from 'react-bootstrap/Badge'
 import Alert from 'react-bootstrap/Alert'
 import NavbarForm from "./navbar-form.component";
 import NavbarTools from "./navbar-tools.component";
 import './../App.css';
+import './../SuperResponsiveTableStyle.css';
 
 const Task = props => (
-  <tr>
-    <td>{props.task.name}</td>
-    <td>{props.task.points}</td>
-    <td>{props.task.duration} min</td>
-    <td> 
-      <div className="btn-group mr-1" role="group" aria-label="First group">
+  <Tr>
+    <Td>{props.task.name}</Td>
+    <Td>{props.task.points}</Td>
+    <Td>{props.task.duration} min</Td>
+    <Td> 
+      <div className="btn-group mr-1 flex-wrap" role="group" aria-label="First group">
         <button type="button" className="btn btn-success" onClick={() => {props.completeTask(props.task._id)}}>complete</button>
         <button type="button" className="btn btn-warning">edit</button>
         <button type="button" className="btn btn-danger" onClick={() => { props.updateTask(props.task._id) }}>delete</button>
       </div>
-    </td>
-    <td>
+    </Td>
+    <Td>
       {
         props.task.backlog ? (<button type="button" className="btn btn-outline-danger" onClick={() => { props.toggleTypeBtn(props.task._id) }}>Backlog</button>) 
         : 
         (<button type="button" className="btn btn-outline-primary" onClick={() => { props.toggleTypeBtn(props.task._id) }}>Recurring</button>)
       }
-    </td>
-  </tr>
+    </Td>
+  </Tr>
 )
 
 
@@ -203,15 +204,17 @@ export default class ObjectiveList extends Component {
           </h2>
           </Alert.Heading>
           <hr />
-          <Badge pill variant="danger">  
-          { Number(this.state.tasks.filter(el => el.complete === false).length) } <br/> incomplete tasks
-          </Badge>&nbsp;
-          <Badge pill variant="success">  
-          { Number(this.state.tasks.filter(el => el.complete === true).length) } <br/> complete tasks
-          </Badge>&nbsp;
-          <Badge pill variant="primary"> 
-          { Number(this.state.score) }  <br/>  current daily score 
-          </Badge>
+          <div >
+            <Badge pill variant="danger">  
+            { Number(this.state.tasks.filter(el => el.complete === false).length) } <br/> incomplete tasks
+            </Badge>&nbsp;
+            <Badge pill variant="success">  
+            { Number(this.state.tasks.filter(el => el.complete === true).length) } <br/> complete tasks
+            </Badge>&nbsp;
+            <Badge pill variant="primary"> 
+            { Number(this.state.score) }  <br/>  current daily score 
+            </Badge>
+          </div>
           </Alert>
           &nbsp;&nbsp;
           <button type="button" className="btn btn-circle btn-sm btn-outline-primary" onClick={() => { this.getNextDay() }}> 
@@ -220,19 +223,19 @@ export default class ObjectiveList extends Component {
         </div> &nbsp;
         <NavbarTools data={this.state} />
         <NavbarForm data={this.state} />
-        <Table hover variant="dark" className="table list-table">
-          <thead className="">
-            <tr>
-              <th>Task</th>
-              <th>Points</th>
-              <th>Duration</th>
-              <th>Action</th>
-              <th>Type</th>
-            </tr>
-          </thead>
-          <tbody>
+        <Table className="backlog-table table">
+          <Thead className="">
+            <Tr>
+              <Th>Task</Th>
+              <Th>Points</Th>
+              <Th>Duration</Th>
+              <Th>Action</Th>
+              <Th>Type</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
             { this.objectivesList() }
-          </tbody>
+          </Tbody>
         </Table>
       </div>
     )

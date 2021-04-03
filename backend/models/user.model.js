@@ -43,7 +43,8 @@ const userSchema = new Schema({
   	unique: true 
   },
   name: {
-  	type: String
+  	firstName: String,
+    lastName: String
   },
   dailyScore: { 
   	type: Number, 
