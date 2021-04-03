@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
+import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 import icons from 'glyphicons';
 import axios from 'axios';
@@ -63,7 +64,7 @@ export default class NavbarForm extends Component {
     		points: this.state.points,
     		duration: Number(this.state.duration),
     		complete: Number(this.state.complete),
-    		backlog: this.state.backlog
+    		backlog: true
     	}
 
     	const data = {
@@ -73,7 +74,10 @@ export default class NavbarForm extends Component {
     	}
 
 	    axios.post('http://localhost:5000/days/addTask', data)
-	    .then(res => console.log(res.data));
+	    .then(res => console.log(res.data))
+	    .catch(error => {
+        	console.log(error);
+      	});
 
 	    window.location = '/';
 	}
@@ -83,7 +87,21 @@ export default class NavbarForm extends Component {
   render() {
     return (
       <Navbar className="bg-light navbar-form" >
+       
 	  <Form inline name="form-add-task" onSubmit={ this.onFormSubmit }>
+	  <Dropdown>
+		  <Dropdown.Toggle variant="primary" id="dropdown-basic">
+		    Shortcuts
+		  </Dropdown.Toggle>
+
+		  <Dropdown.Menu>
+		    <Dropdown.Item href="#/action-1">Work</Dropdown.Item>
+		    <Dropdown.Item href="#/action-2">Exercise</Dropdown.Item>
+		    <Dropdown.Item href="#/action-3">Miscellaneous</Dropdown.Item>
+		    <Dropdown.Divider />
+        	<Dropdown.Item eventKey="4">{icons.plus} Add Shortcut</Dropdown.Item>
+		  </Dropdown.Menu>
+		</Dropdown>&nbsp;
 	    <InputGroup>
 
 	      
@@ -112,7 +130,7 @@ export default class NavbarForm extends Component {
 	        name="duration"
 	        onChange={this.handleDurationChange}
 	      />&nbsp;
-	    <Button type="button" onClick={this.onFormSubmit}>{icons.plus} Add Task</Button>
+	    <Button type="button" variant="outline-primary" onClick={this.onFormSubmit}>{icons.plus} Add Task</Button>
 	    </InputGroup>
 	  </Form>
 	</Navbar>

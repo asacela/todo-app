@@ -19,9 +19,14 @@ connection.once('open', () => {
 })
 
 
-
 const dayRouter = require('./routes/days');
 app.use('/days', dayRouter);
+
+const backlogRouter = require('./routes/backlog');
+app.use('/backlog', backlogRouter);
+
+const analyticsRouter = require('./routes/analytics');
+app.use('/analytics', analyticsRouter);
 
 
 app.listen(port, () => {

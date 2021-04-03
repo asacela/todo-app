@@ -57,9 +57,17 @@
 }
 
 .navbar-form{
+
   display: flex;
   justify-content: space-around;
 }
+
+.navbar-usertools{
+/*  display: flex;
+  flex-direction: row;
+  justify-content: right;*/
+}
+
 
 .form-navbar-children{
 
@@ -102,4 +110,9 @@
 }
 .modal-toggle-button:focus {
  outline: none;
+}
+
+.modal-body{
+    height: 80vh;
+    overflow-y: auto;
 }

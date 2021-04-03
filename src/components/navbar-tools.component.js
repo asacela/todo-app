@@ -54,6 +54,11 @@ export default class NavbarTools extends Component {
 				date: this.state.date,
 				tasks: res.data[0].tasks.filter(el => el.backlog === false)
 		    }
+
+		    dayToUpdate.tasks = dayToUpdate.tasks.map(el => {
+			    el.complete = false
+			    return el
+			})
 	        return axios.post('http://localhost:5000/days/addRecurringTasks', dayToUpdate)
 	    })
 	    .then(res => 

@@ -37,11 +37,16 @@ export default class ObjectiveList extends Component {
   constructor(props) {
     super(props);
     this.updateTask = this.updateTask.bind(this)
+    // this.deleteTask = this.deleteTask.bind(this) // test before adding bruh
     this.completeTask = this.completeTask.bind(this)
     this.getPrevDay = this.getPrevDay.bind(this)
     this.getNextDay = this.getNextDay.bind(this)
     this.toggleTypeBtn = this.toggleTypeBtn.bind(this)
-    this.date = new Date().toISOString().split("T")[0];
+
+    var my_date = new Date();
+    var utcDate = new Date(my_date.toUTCString());
+    utcDate.setHours(utcDate.getHours()-8);
+    this.date = new Date(utcDate).toISOString().split("T")[0];
     this.state = {
       date: this.date,
       numtasks: 0,
@@ -104,6 +109,8 @@ export default class ObjectiveList extends Component {
     let tasks = this.state.tasks
     tasks.filter(el => el._id === id)[0].complete = true;
     console.log(tasks);
+
+    this.state.score = this.state.score + Number(tasks.filter(el => el._id === id)[0].points)
 
     const day = {
       date: this.state.date,
@@ -203,7 +210,7 @@ export default class ObjectiveList extends Component {
           { Number(this.state.tasks.filter(el => el.complete === true).length) } <br/> complete tasks
           </Badge>&nbsp;
           <Badge pill variant="primary"> 
-          { Number(this.state.tasks.filter(el => el.complete === false).reduce((a, b) => a + (b['score'] || 0), 0)) }  <br/> current score 
+          { Number(this.state.score) }  <br/>  current daily score 
           </Badge>
           </Alert>
           &nbsp;&nbsp;

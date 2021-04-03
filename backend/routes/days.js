@@ -15,7 +15,11 @@ let Day = require('../models/day.model');
 */
 router.route('/').get((req,res) => {
 
-	const today = new Date().toISOString().split("T")[0];
+	var my_date = new Date();
+	var utcDate = new Date(my_date.toUTCString());
+	utcDate.setHours(utcDate.getHours()-8);
+
+	const today = new Date(utcDate).toISOString().split("T")[0];
 	// console.log(req.body.date);
 	// var date = req.body.date;
 	Day.find({date: String(today)})
@@ -45,7 +49,12 @@ router.route('/specifiedDay').get((req,res) => {
 */
 router.route('/add').post((req, res) => {
 
-	const date = new Date().toISOString().split("T")[0];
+	var my_date = new Date();
+	var utcDate = new Date(my_date.toUTCString());
+	utcDate.setHours(utcDate.getHours()-8);
+
+	const date = new Date(utcDate).toISOString().split("T")[0];
+
 	const numtasks = 0;
 	const score = 0;
 	const tasks = req.body.tasks
@@ -131,10 +140,13 @@ router.route('/addTask').post((req, res) => {
 */
 router.route('/recurring').get((req,res) => {
 
-	var today = new Date();
+	var my_date = new Date();
+	var utcDate = new Date(my_date.toUTCString());
+	utcDate.setHours(utcDate.getHours()-8);
+	const today = new Date(utcDate);
+	
 	today.setDate(today.getDate() - 1);
-	today = today.toISOString().split("T")[0];
-	Day.find({date: String(today)})
+	Day.find({date: String(today.toISOString().split("T")[0])})
 	.then(tasks => res.json(tasks))
 	.catch(err => res.status(400).json('Error: ' + err));
 });

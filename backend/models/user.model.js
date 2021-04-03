@@ -62,6 +62,8 @@ const userSchema = new Schema({
   	required: true 
   },
   rewards: [rewardSchema],
+  recurringTasks: [],
+  shortcuts: [],
 }, {
 	timestamps: true,
 });

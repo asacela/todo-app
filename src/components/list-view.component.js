@@ -17,7 +17,7 @@ const CompletedTask = props => (
     <td>{props.task.duration} min</td>
     <td> 
       <div className="btn-group mr-1" role="group" aria-label="First group">
-        <button type="button" className="btn btn-success" onClick={() => {props.completeTask(props.task._id)}}>complete</button>
+        <button type="button" className="btn btn-primary" onClick={() => {props.resetTask(props.task._id)}}>reset</button>
         <button type="button" className="btn btn-warning">edit</button>
         <button type="button" className="btn btn-danger" onClick={() => { props.updateTask(props.task._id) }}>delete</button>
       </div>
@@ -40,7 +40,7 @@ export default class ListView extends Component {
     super(props);
 
       this.updateTask = this.updateTask.bind(this)
-      this.completeTask = this.completeTask.bind(this)
+      this.resetTask = this.resetTask.bind(this)
       this.toggleTypeBtn = this.toggleTypeBtn.bind(this)
 
     this.state = {
@@ -89,12 +89,14 @@ export default class ListView extends Component {
       window.location = '/';
   }
 
-   completeTask(id){
+   resetTask(id){
 
 
       let tasks = this.state.tasks
-      tasks.filter(el => el._id === id)[0].complete = true;
+      tasks.filter(el => el._id === id)[0].complete = false;
       console.log(tasks);
+
+      this.state.score = this.state.score - Number(tasks.filter(el => el._id === id)[0].points);
 
       const day = {
          date: this.state.date,
@@ -132,7 +134,7 @@ export default class ListView extends Component {
    completedList() {
 
     return this.state.tasks.filter(el => el.complete === true).map(currentTask => {
-      return <CompletedTask task={currentTask} updateTask={this.updateTask} completeTask={this.completeTask} toggleTypeBtn={this.toggleTypeBtn} key={currentTask._id}/>;
+      return <CompletedTask task={currentTask} updateTask={this.updateTask} resetTask={this.resetTask} toggleTypeBtn={this.toggleTypeBtn} key={currentTask._id}/>;
     })
    }
 
@@ -147,11 +149,14 @@ export default class ListView extends Component {
             {
                showModal ? (
                   <Modal className="my-modal">
+                    <div className="modal-body">
+                     
                      <div align="center">
                         <h2>
                            <Badge pill variant="success"> Completed Tasks </Badge>
                         </h2>
                      </div>
+                     
                      <Table hover variant="light" className="table list-table">
                          <thead className="">
                            <tr>
@@ -170,6 +175,8 @@ export default class ListView extends Component {
                         className="modal-close"
                         onClick={this.toggleModal}
                      >{icons.crossHeavy}</button>
+
+                     </div>
                   </Modal>
                ) : null
             }
