@@ -20,7 +20,7 @@ Copy and Paste the api key in the .env files in backend and root dirs\
 
 ## That's it your good to go
 
-If there are issues, right in issue page or something...
+If there are issues, write them in the issues page or something...
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
