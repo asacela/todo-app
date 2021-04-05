@@ -1,4 +1,53 @@
-# Getting Started with Create React App
+# Getting Started with Todo App
+
+## Setup Environment
+
+Clone into dir on your local machine
+
+Install these things
+- node.js
+- npm install concurrently
+- backend: install cors express mongoose dot-env body-parser (install these from backend dir)
+- frontend: install axios bootstrap glyphicons react react-bootstrap react-router-dom (might not need to do this)
+
+## Create Mongo.db User
+
+Go to Mongodb.com and setup a new user account
+Start a free cluster with default settings
+Get your Mongodb api key 
+Copy and Paste the key in the .env file in backend and root dirs
+
+## That's it your good to go
+
+If there are issues, right in issue page or something...
+
+# Getting Started with Create React App ***INFORMATIONAL ONLY, DONT NEED TO FOLLOW THIS***
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `yarn start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+### `yarn test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `yarn build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\ Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
