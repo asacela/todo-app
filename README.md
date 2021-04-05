@@ -34,6 +34,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
-You need concurrently module installed for this to work.
-This command runs both the server and the react concurrently.
+You need concurrently module installed for this to work.\
+This command runs both the server and react frontend concurrently.
 
