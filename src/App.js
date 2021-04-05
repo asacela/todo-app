@@ -6,6 +6,8 @@ import Navbar from "./components/navbar.component"
 import ListView from "./components/list-view.component";
 import BacklogList from "./components/backlog.component";
 import Analytics from "./components/analytics.component";
+import User from "./components/user.component";
+import Login from "./components/login.component";
 
 
 /*
@@ -44,6 +46,8 @@ function App() {
       <Route path="/" exact component={ListView} />
       <Route path="/backlog" exact component={BacklogList} />
       <Route path="/analytics" exact component={Analytics} />
+      <Route path="/user" exact component={User} />
+      <Route path="/login" exact component={Login} />
       </div>
     </Router>
   );

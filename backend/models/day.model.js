@@ -44,6 +44,9 @@ const taskSchema = new Schema({
 */
 const daySchema = new Schema({
 
+  username:{
+    type: String
+  },
   date: { 
   	type: String, 
   	required: true, 

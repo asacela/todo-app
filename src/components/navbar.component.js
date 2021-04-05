@@ -25,7 +25,7 @@ export default class Navbar extends Component {
               <Dropdown.Menu>
                 <Dropdown.Item><Link to="/user">User Profile</Link></Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item><Link to="/user">Login</Link></Dropdown.Item>
+                <Dropdown.Item><Link to="/login">Login</Link></Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </li>

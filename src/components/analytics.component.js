@@ -18,7 +18,7 @@ export default class Analytics extends Component {
   	return(
   		<div>
   			<h3> 
-  				Under Construction...
+  				Analytics under Construction...
   			</h3>
 
   		</div>
