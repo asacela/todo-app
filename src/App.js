@@ -14,7 +14,6 @@ import Login from "./components/login.component";
 
   TODO:
   - finish dropdown menu so that it populates form, and add shortcut adding ability
-  - implement system that takes backlog tasks from previous days and populate backlog page
   - make the analytics page with graphs displaying progress
   - implement reward system on the analytics/profile page
   - make it possible to traverse days

@@ -68,9 +68,10 @@ export default class NavbarTools extends Component {
         	console.log(error);
         })
 
+        // Not sure why, but need a long time out for tasks to load properly...
         setTimeout(function(){
 		   window.location.reload(1);
-		}, 100);
+		},500);
 
 	}
 

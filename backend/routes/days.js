@@ -147,7 +147,9 @@ router.route('/recurring').get((req,res) => {
 	
 	today.setDate(today.getDate() - 1);
 	Day.find({date: String(today.toISOString().split("T")[0])})
-	.then(tasks => res.json(tasks))
+	.then(tasks => 
+			res.json(tasks)
+	)
 	.catch(err => res.status(400).json('Error: ' + err));
 });
 
