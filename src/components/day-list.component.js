@@ -13,7 +13,12 @@ import './../SuperResponsiveTableStyle.css';
 
 const Task = props => (
   <Tr>
-    <Td>{props.task.name}</Td>
+    <Td>{props.task.name} &nbsp; 
+    {
+    !props.task.backlog && 
+    <Badge pill variant="danger">  Streak: {props.task.streak} </Badge>
+    }
+    </Td>
     <Td>{props.task.points}</Td>
     <Td>{props.task.duration} min</Td>
     <Td> 
@@ -109,6 +114,7 @@ export default class ObjectiveList extends Component {
 
     let tasks = this.state.tasks
     tasks.filter(el => el._id === id)[0].complete = true;
+    tasks.filter(el => el._id === id)[0].streak += 1;
     console.log(tasks);
 
     this.state.score = this.state.score + Number(tasks.filter(el => el._id === id)[0].points)

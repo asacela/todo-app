@@ -12,7 +12,12 @@ import './../App.css';
 
 const CompletedTask = props => (
   <tr>
-    <td>{props.task.name}</td>
+    <td>{props.task.name} &nbsp; 
+    {
+    !props.task.backlog && 
+    <Badge pill variant="danger">  Streak: {props.task.streak} </Badge>
+    }
+    </td>
     <td>{props.task.points}</td>
     <td>{props.task.duration} min</td>
     <td> 
@@ -94,6 +99,8 @@ export default class ListView extends Component {
 
       let tasks = this.state.tasks
       tasks.filter(el => el._id === id)[0].complete = false;
+      var x = tasks.filter(el => el._id === id)[0].streak 
+      tasks.filter(el => el._id === id)[0].streak -= (x > 0) ? 1 : 0;
       console.log(tasks);
 
       this.state.score = this.state.score - Number(tasks.filter(el => el._id === id)[0].points);

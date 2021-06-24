@@ -33,6 +33,10 @@ const taskSchema = new Schema({
     type: Boolean,
     required: true
   },
+  streak: {
+    type: Number,
+    require: true
+  },
 }, {
 	timestamps: true,
 });

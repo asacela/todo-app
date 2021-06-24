@@ -29,7 +29,8 @@ export default class NavbarForm extends Component {
 			points: 0,
 			duration: 0,
 			complete: false,
-			backlog: false
+			backlog: false,
+			streak: 0
 		}
 	}
 
@@ -57,6 +58,7 @@ export default class NavbarForm extends Component {
 		console.log("Task: " + this.state.name);
 		console.log("Points: " + this.state.points);
 		console.log("Duration: " + this.state.duration);
+		console.log("Streak: " + this.state.streak);
 		
 
     	const task = {
@@ -64,7 +66,8 @@ export default class NavbarForm extends Component {
     		points: this.state.points,
     		duration: Number(this.state.duration),
     		complete: Number(this.state.complete),
-    		backlog: true
+    		backlog: true,
+    		streak: Number(this.state.streak)
     	}
 
     	const data = {
