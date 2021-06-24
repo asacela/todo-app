@@ -15,8 +15,9 @@ const Task = props => (
   <Tr>
     <Td>{props.task.name} &nbsp; 
     {
-    !props.task.backlog && 
-    <Badge pill variant="danger">  Streak: {props.task.streak} </Badge>
+    !props.task.backlog && props.task.streak > 1 && (props.task.streak > 5 ? 
+    <Badge pill variant="danger">  Streak: {props.task.streak} &nbsp; {icons.hot} {icons.hot} {icons.hot}</Badge> :
+    <Badge pill variant="danger">  Streak: {props.task.streak}</Badge> )
     }
     </Td>
     <Td>{props.task.points}</Td>
